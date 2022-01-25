@@ -1,0 +1,37 @@
+---
+- name: test playbook
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: create resourceGroup
+      azure_rm_resourcegroup:
+        name: mobbing_azure
+        location: westeurope
+
+    - name: Create a virtual network
+      azure_rm_virtualnetwork:
+        state: absent
+        resource_group: mobbing_azure
+        name: mobbing_network
+        address_prefixes_cidr:
+          - "172.100.0.0/16"
+        tags:
+          mobbing: "true"
+
+    - name: Use minimal parameters and system-assigned identity
+      azure_rm_aks:
+        state: present
+        name: mobbing_azure_aks
+        location: westeurope
+        resource_group: mobbing_azure
+        dns_prefix: akstest
+        kubernetes_version: "1.22.4"
+        agent_pool_profiles:
+          - name: default
+            count: 3
+            vm_size: Standard_D2_v2
+            mode: User
+          - name: system
+            count: 3
+            vm_size: Standard_D2_v2
+            mode: System

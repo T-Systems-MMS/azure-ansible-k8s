@@ -1,0 +1,26 @@
+---
+- name: mobbing container playbook
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create a k8s namespace
+      kubernetes.core.k8s:
+        name: mobbing
+        api_version: v1
+        kind: Namespace
+        state: present
+
+    - name: Create a mysql secret
+      kubernetes.core.k8s:
+        state: present
+        src: ../../kubernetes/wordpressmobbing/mysqlmobbing-secret.yaml
+
+    - name: Create a Deployment object
+      kubernetes.core.k8s:
+        state: present
+        src: ../../kubernetes/wordpressmobbing/mysqlmobbing-deployment.yaml
+
+    - name: Create a Service object
+      kubernetes.core.k8s:
+        state: present
+        src: ../../kubernetes/wordpressmobbing/wordpress-deployment.yaml

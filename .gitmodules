@@ -1,0 +1,6 @@
+[submodule "docker/docker-management-container"]
+	path = docker/docker-management-container
+	url = https://github.com/T-Systems-MMS/docker-management-container
+[submodule "ansible/collections/azure/azcollection"]
+	path = ansible/collections/azure/azcollection
+	url = https://github.com/ansible-collections/azure/

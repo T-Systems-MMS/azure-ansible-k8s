@@ -1,0 +1,12 @@
+---
+kind: Service
+metadata:
+  name: mobbingservice
+  namespace: mobbing
+spec:
+  selector:
+    app: mobbinginx
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer

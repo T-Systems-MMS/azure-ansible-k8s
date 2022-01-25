@@ -1,0 +1,11 @@
+---
+- name: delete playbook (löscht nicht das playbook, sondern azure)
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: delete resourceGroup
+      azure_rm_resourcegroup:
+        name: mobbing_azure
+        location: westeurope
+        state: absent
+        force_delete_nonempty: True
